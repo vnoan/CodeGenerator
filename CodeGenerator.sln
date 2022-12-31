@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGenerator.Api", "CodeGenerator.Api\CodeGenerator.Api.csproj", "{6A4C4D4C-B8D8-4F66-919A-9297D10912F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator.Core", "CodeGenerator.Core\CodeGenerator.Core.csproj", "{09C4FD64-54BF-45C1-AC66-C566A5FAB922}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A4C4D4C-B8D8-4F66-919A-9297D10912F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4C4D4C-B8D8-4F66-919A-9297D10912F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4C4D4C-B8D8-4F66-919A-9297D10912F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4C4D4C-B8D8-4F66-919A-9297D10912F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C4FD64-54BF-45C1-AC66-C566A5FAB922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C4FD64-54BF-45C1-AC66-C566A5FAB922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C4FD64-54BF-45C1-AC66-C566A5FAB922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C4FD64-54BF-45C1-AC66-C566A5FAB922}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C72A2A6D-61B1-4F6B-A884-1D908339A648}
+	EndGlobalSection
+EndGlobal
