@@ -18,16 +18,16 @@ public class CodeService : ICodeService
         _logger = logger;
         _configuration = configuration;
     }
+
     public IEnumerable<string> GenerateCodeList(int count, int codeLength, bool withNumbers, bool repeatLetters)
     {
         var codes = new ConcurrentBag<string>();
-        var alphabet = GetAlphabet(withNumbers);
 
-        ValidateParams(count, codeLength, alphabet.Length);
+        ValidateParams(count, codeLength);
         
         Parallel.For(0, count, _ =>
         {
-            var code = GenerateCode(alphabet, codeLength, repeatLetters);
+            var code = GenerateCode(codeLength, repeatLetters, withNumbers);
             codes.Add(code);
         });
 
@@ -35,7 +35,7 @@ public class CodeService : ICodeService
         while(codeList.Count < count)
         {
             _logger.LogInformation($"{count - codeList.Count} left");
-            var code = GenerateCode(alphabet, codeLength, repeatLetters);
+            var code = GenerateCode(codeLength, repeatLetters, withNumbers);
             if(!codeList.Contains(code))
             {
                 codeList.Add(code);
@@ -45,9 +45,10 @@ public class CodeService : ICodeService
         return codeList;
     }
 
-    private string GenerateCode(StringBuilder alphabet, int codeLength, bool repeatLetters)
+    private string GenerateCode(int codeLength, bool repeatLetters, bool withNumbers)
     {
         Random random = new Random();
+        var alphabet = GetAlphabet(withNumbers);
         var code = "";
         while (code.Length < codeLength)
         {
@@ -55,26 +56,27 @@ public class CodeService : ICodeService
             code += alphabet[index];
             if (repeatLetters)
             {
-                alphabet.Remove(index, 1);
+                alphabet = alphabet.Remove(index, 1);
             }
         }
 
         return code;
     }
 
-    private void ValidateParams(int count, int length, int alphabetSize)
+    private void ValidateParams(int count, int length)
     {
+        int codeLength = _configuration.GetValue<int>("CodeSettings:MaxCodeLength"); ;
+        if (length < 1)
+            throw new ArgumentOutOfRangeException("Length should be bigger than 1");
+        else if (length > codeLength)
+            throw new ArgumentOutOfRangeException($"Length should be smaller than {codeLength}");
+
         int countThreshold = _configuration.GetValue<int>("CodeSettings:MaxCount");
         if (count < 1)
             throw new ArgumentOutOfRangeException("Count should be bigger than 1");
         else if (count > countThreshold)
             throw new ArgumentOutOfRangeException($"Count should be smaller than {countThreshold}");
 
-        int codeLength = _configuration.GetValue<int>("CodeSettings:MaxCodeLength"); ;
-        if (length < 1)
-            throw new ArgumentOutOfRangeException("Length should be bigger than 1");
-        else if (length > codeLength)
-            throw new ArgumentOutOfRangeException($"Length should be smaller than {codeLength}");
     }
 
     private StringBuilder GetAlphabet(bool withNumbers)
